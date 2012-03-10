@@ -7,13 +7,16 @@
 </head>
 <body>
 <script type="text/javascript" src="webgl-utils.js"></script>
+<script type="text/javascript" src="time.js"></script>
 <script type="text/javascript" src="Engine.js"></script>
 <script>
 window.onload = initWebGL;
 </script>
 <canvas id='GL-Canvas' style="border:none;" width="640px" height="480px"></canvas>
-<div id="debug_console">
 
+<div id="debug_console">
+	<div id='performance_analyzer''>
+	</div>
 </div>
 </body>
 </html>
