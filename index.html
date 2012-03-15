@@ -6,10 +6,13 @@
 </head>
 <body>
 <script id="vertexShader" type="x-shader/x-vertex">
-attribute vec4 vPosition;
+    attribute vec3 aVertexPosition;
+
+    uniform mat4 uMVMatrix;
+    uniform mat4 uPMatrix;
 
 void main(void){
-	gl_Position = vPosition;
+	gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
 }
 </script>
 <script id="fragmentShader" type="x-shader/x-fragment">
@@ -21,6 +24,7 @@ void main(void){
 </script>
 <script type="text/javascript" src="webgl-utils.js"></script>
 <script type="text/javascript" src="J3DI.js"></script>
+<script type="text/javascript" src="glMatrix-0.9.5.min.js"></script>
 <script type="text/javascript" src="Time.js"></script>
 <script type="text/javascript" src="Sprite.js"></script>
 <script type="text/javascript" src="Engine.js"></script>
