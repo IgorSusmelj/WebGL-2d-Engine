@@ -3,7 +3,7 @@
  */
 
 function GAME_START(){
-	sprite = new Sprite("nehe.gif");
+	sprite = new Sprite("nehe.gif",256,256);
 	
 }
 
