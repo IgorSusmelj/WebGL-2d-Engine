@@ -1,33 +1,43 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>WebGL-Test Environment</title>
+<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
 </head>
 <body>
 <script id="vertexShader" type="x-shader/x-vertex">
     attribute vec3 aVertexPosition;
+    attribute vec2 aTextureCoord;
 
     uniform mat4 uMVMatrix;
     uniform mat4 uPMatrix;
 
-void main(void){
-	gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
-}
+    varying vec2 vTextureCoord;
+
+
+    void main(void) {
+        gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
+        vTextureCoord = aTextureCoord;
+    }
 </script>
 <script id="fragmentShader" type="x-shader/x-fragment">
-precision mediump float;
+    precision mediump float;
 
-void main(void){
-	gl_FragColor = vec4(1.0,1.0,1.0,1.0);
-}
+    varying vec2 vTextureCoord;
+
+    uniform sampler2D uSampler;
+
+    void main(void) {
+        gl_FragColor = texture2D(uSampler, vec2(vTextureCoord.s, vTextureCoord.t));
+    }
 </script>
+<script type="text/javascript" src="glMatrix-0.9.5.min.js"></script>
 <script type="text/javascript" src="webgl-utils.js"></script>
 <script type="text/javascript" src="J3DI.js"></script>
-<script type="text/javascript" src="glMatrix-0.9.5.min.js"></script>
 <script type="text/javascript" src="Time.js"></script>
 <script type="text/javascript" src="Sprite.js"></script>
 <script type="text/javascript" src="Engine.js"></script>
+<script type="text/javascript" src="Example.js"></script>
 <script>
 window.onload = initWebGL;
 </script>
