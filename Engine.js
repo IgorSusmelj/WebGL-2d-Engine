@@ -8,7 +8,7 @@
 
 var gl; //
 var canvas;
-var renderTime;
+
 var debugConsole, performanceConsole;
 var postTime;
 var lastTime;
@@ -25,7 +25,7 @@ var vertexPosBufferObject;
 var mvMatrix = mat4.create();
 var pMatrix = mat4.create();
 
-
+var renderTimer = new Timer();
 var texture_test;
 
 
@@ -65,7 +65,8 @@ function initWebGL(){
 
 
 function render(){
-	renderTime = $time();
+	postTime = $time();
+	renderTimer.start();
 	window.requestAnimFrame(render, canvas);//call drawback function for smooth animation. (60fps limit << screen refresh rate)
 	
 	gl.viewport(0,0,gl.viewportWidth,gl.viewportHeight);
@@ -77,7 +78,7 @@ function render(){
 	
 	GAME_RENDER();
 
-    
+
 	analyze_performance();//function for performance information
 }
 
