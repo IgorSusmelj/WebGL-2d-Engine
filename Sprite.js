@@ -2,19 +2,25 @@
  * 
  */
 
-function Sprite(image_url){
+function Sprite(image_url,width,height){
 	
 	this.texture = loadTexture("nehe.gif");
-		
+	this.width = width;
+	this.height = height;
+
+	
+	var scaleFactorX = this.width/Vwidth;
+	var scaleFactorY = this.height/Vheight;
+	
 	
     this.VertexPositionBuffer = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, this.VertexPositionBuffer);
     var vertices = [
 
-        -1.0, -1.0,  0.0,
-         1.0, -1.0,  0.0,
-         1.0,  1.0,  0.0,
-        -1.0,  1.0,  0.0
+         0, 0,  0.0,
+         scaleFactorX, 0,  0.0,
+         scaleFactorX,  scaleFactorY,  0.0,
+         0,  scaleFactorY,  0.0
 
     ];
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
