@@ -16,12 +16,17 @@ var fps;
 var performanceText;
 var Vwidth;
 var Vheight;
-var programmObject;
+var activeShader;
 var vertexAttribLoc;
 var sprite;
 var vVertices;
 var vertexPosBufferObject;
 
+var mvMatrix = mat4.create();
+var pMatrix = mat4.create();
+
+
+var texture_test;
 
 
 
@@ -33,18 +38,27 @@ function initWebGL(){
 	gl.viewportHeight= canvas.height;
 	gl.clearColor(0.0,0.0,0.0,1.0);
 	gl.enable(gl.DEPTH_TEST);
-	gl.depthFunc(gl.LEQUAL);
-	sprite = new Sprite();
-	
-	programmObject = simpleSetup(gl, "vertexShader", "fragmentShader", "vPosition", null, null);
-	//vertexAttribLoc = gl.getAttribLocation(programmObject, "vPosition");
-	//initializes variables for performace_analyzer
+	//gl.depthFunc(gl.LEQUAL);
+
 	lastTime = $time;
 	fps = 60;
+
+	
+	
+	
+	initShaders();
+	
+	GAME_START();
+	
+	//mat4.perspective(45, gl.viewportWidth / gl.viewportHeight, 0.1, 100.0, pMatrix);
+	mat4.ortho(-1, 1, -1, 1, 0.0, 100.0, pMatrix);
 	
 	render();//main function for drawing
-	
+	shutdown();
 }
+
+
+
 
 function render(){
 	renderTime = $time();
@@ -52,18 +66,92 @@ function render(){
 	
 	gl.viewport(0,0,gl.viewportWidth,gl.viewportHeight);
 	gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);
-	vertexAttribLoc = gl.getAttribLocation(programmObject, "vPosition");
 	
-	draw(sprite);
+	
+	mat4.identity(mvMatrix);
+	mat4.translate(mvMatrix,[0.0,0.0,-5.0]);
+	
+	GAME_RENDER();
 
-	
+    
 	analyze_performance();//function for performance information
+}
+
+function shutdown(){
+	GAME_END();
+}
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+
+
+
+function setMatrixUniforms() {
+    gl.uniformMatrix4fv(activeShader.pMatrixUniform, false, pMatrix);
+    gl.uniformMatrix4fv(activeShader.mvMatrixUniform, false, mvMatrix);
+}
+
+function getShader(gl, id) {
+    var shaderScript = document.getElementById(id);
+    if (!shaderScript) {
+        return null;
+    }
+
+    var str = "";
+    var k = shaderScript.firstChild;
+    while (k) {
+        if (k.nodeType == 3) {
+            str += k.textContent;
+        }
+        k = k.nextSibling;
+    }
+
+    var shader;
+    if (shaderScript.type == "x-shader/x-fragment") {
+        shader = gl.createShader(gl.FRAGMENT_SHADER);
+    } else if (shaderScript.type == "x-shader/x-vertex") {
+        shader = gl.createShader(gl.VERTEX_SHADER);
+    } else {
+        return null;
+    }
+
+    gl.shaderSource(shader, str);
+    gl.compileShader(shader);
+
+    if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+        alert(gl.getShaderInfoLog(shader));
+        return null;
+    }
+
+    return shader;
 }
 
 
 
+function initShaders() {
+    var fragmentShader = getShader(gl, "fragmentShader");
+    var vertexShader = getShader(gl, "vertexShader");
 
+    activeShader = gl.createProgram();
+    gl.attachShader(activeShader, vertexShader);
+    gl.attachShader(activeShader, fragmentShader);
+    gl.linkProgram(activeShader);
 
+    if (!gl.getProgramParameter(activeShader, gl.LINK_STATUS)) {
+        alert("Could not initialise shaders");
+    }
 
+    gl.useProgram(activeShader);
+
+    activeShader.vertexPositionAttribute = gl.getAttribLocation(activeShader, "aVertexPosition");
+    gl.enableVertexAttribArray(activeShader.vertexPositionAttribute);
+
+    activeShader.textureCoordAttribute = gl.getAttribLocation(activeShader, "aTextureCoord");
+    gl.enableVertexAttribArray(activeShader.textureCoordAttribute);
+
+    activeShader.pMatrixUniform = gl.getUniformLocation(activeShader, "uPMatrix");
+    activeShader.mvMatrixUniform = gl.getUniformLocation(activeShader, "uMVMatrix");
+    activeShader.samplerUniform = gl.getUniformLocation(activeShader, "uSampler");
+}
 
 
