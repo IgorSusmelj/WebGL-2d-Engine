@@ -34,8 +34,12 @@ function initWebGL(){
 	performanceConsole = document.getElementById("performance_analyzer");
 	canvas = document.getElementById("GL-Canvas");
 	gl = WebGLUtils.setupWebGL(canvas);
+	Vwidth = canvas.width;
+	Vheight= canvas.height;
+	
 	gl.viewportWidth = canvas.width;
 	gl.viewportHeight= canvas.height;
+	
 	gl.clearColor(0.0,0.0,0.0,1.0);
 	gl.enable(gl.DEPTH_TEST);
 	//gl.depthFunc(gl.LEQUAL);
@@ -51,7 +55,7 @@ function initWebGL(){
 	GAME_START();
 	
 	//mat4.perspective(45, gl.viewportWidth / gl.viewportHeight, 0.1, 100.0, pMatrix);
-	mat4.ortho(-1, 1, -1, 1, 0.0, 100.0, pMatrix);
+	mat4.ortho(0, 1, 0, 1, 0.0, 100.0, pMatrix);
 	
 	render();//main function for drawing
 	shutdown();
