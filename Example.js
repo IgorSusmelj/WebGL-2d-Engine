@@ -8,7 +8,7 @@ function GAME_START(){
 }
 
 function GAME_RENDER(){
-	DrawSprite(sprite);
+	DrawSprite(sprite,0.9,0.0);
 }
 
 function GAME_END(){
