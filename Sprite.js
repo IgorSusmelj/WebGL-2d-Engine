@@ -4,7 +4,7 @@
 
 function Sprite(image_url,width,height){
 	
-	this.texture = loadTexture("nehe.gif");
+	this.texture = loadTexture(image_url);
 	this.width = width;
 	this.height = height;
 
