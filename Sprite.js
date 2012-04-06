@@ -55,7 +55,9 @@ function Sprite(image_url,width,height){
 
 
 
-function DrawSprite(_sprite){
+function DrawSprite(_sprite,x,y){
+	mat4.translate(mvMatrix,[x,y,0.0]);
+	
     gl.bindBuffer(gl.ARRAY_BUFFER, _sprite.VertexPositionBuffer);
     gl.vertexAttribPointer(activeShader.vertexPositionAttribute, _sprite.VertexPositionBuffer.itemSize, gl.FLOAT, false, 0, 0);
 
@@ -71,6 +73,7 @@ function DrawSprite(_sprite){
     setMatrixUniforms();
 
     gl.drawElements(gl.TRIANGLES, 6, gl.UNSIGNED_SHORT, 0);
+    mat4.identity(mvMatrix);
 	
 }
 
