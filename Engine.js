@@ -18,7 +18,6 @@ var Vwidth;
 var Vheight;
 var activeShader;
 var vertexAttribLoc;
-var sprite;
 var vVertices;
 var vertexPosBufferObject;
 
