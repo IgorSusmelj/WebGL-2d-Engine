@@ -7,12 +7,25 @@ function DrawText(TextToWrite)
 {
 	var text_canvas = document.getElementById("TextCanvas");
 	var text_ctx = text_canvas.getContext('2d');
-	text_ctx.fillStyle = "#FFFFFF"; 	// This determines the text colour, it can take a hex value or rgba value (e.g. rgba(255,0,0,0.5))
-	text_ctx.textAlign = "center";	// This determines the alignment of text, e.g. left, center, right
-	text_ctx.textBaseline = "middle";	// This determines the baseline of the text, e.g. top, middle, bottom
-	text_ctx.font = "12px monospace";
+	
+	
+	text_ctx.font = "40pt Calibri";
+	text_ctx.fillStyle = "black";
+    // align text horizontally center
+	text_ctx.textAlign = "center";
+    // align text vertically center
+    text_ctx.textBaseline = "middle";
+   
+    
+    
+    
 	text_canvas.width = 512;
 	text_canvas.height = 512;
+
+	
+    text_ctx.fillText("Hello World!", text_canvas.width/2, text_canvas.height/2);
+	
+	
 	
 	//var scaleFactorX = text_canvas.width/Vwidth;
 	//var scaleFactorY = text_canvas.height/Vheight;
@@ -21,7 +34,7 @@ function DrawText(TextToWrite)
 	var scaleFactorY = 0.2;
 	
 	
-	text_ctx.fillText("HTML5 Rocks!", 0, 0);
+	//text_ctx.fillText("HTML5 Rocks!", 0, 0);
 	
     this.VertexPositionBuffer = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, this.VertexPositionBuffer);
