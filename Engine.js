@@ -29,20 +29,45 @@ var texture_test;
 
 var Mouse;
 var DEBUG_ENABLED;
-var RESOLUTION_INDEPENDENT_RENDERING;
+var RESOLUTION_INDEPENDENT_SCALING;
+var STRETCHING_ENABLED;
+var FULLSCREEN_ENABLED;
 
 
 var pixels;
 
 
-function InitEngine(_ResolutionIndependent,_debug){
+function InitEngine(_ResolutionIndependent,_EnableStretching,_EnableFullScreen,_EnableDebug){
 	
-	DEBUG_ENABLED = _debug;
-	RESOLUTION_INDEPENDENT_RENDERING = _ResolutionIndependent;
+	
+	if(!_ResolutionIndependent)
+		RESOLUTION_INDEPENDENT_SCALING = false;
+	if(!_EnableStretching)
+		STRETCHING_ENABLED = false;
+	if(!_EnableDebug)
+		DEBUG_ENABLED = false;
+	
+	
+	DEBUG_ENABLED = _EnableDebug;
+	RESOLUTION_INDEPENDENT_SCALING = _ResolutionIndependent;
+	STRETCHING_ENABLED =_EnableStretching;
+	FULLSCREEN_ENABLED=_EnableFullScreen;
 	
 	performanceConsole = document.getElementById("performance_analyzer");
 	canvas = document.getElementById("GL-Canvas");
+	
+
 	gl = WebGLUtils.setupWebGL(canvas);
+	
+	
+	//Check for fullscreen support and enable it if _EnableFullScreen is true and Enter key has been clicked
+	document.addEventListener("keydown", function(e) {
+		  if (e.keyCode == 13) {
+		    toggleFullScreen();
+		  }
+		}, false);
+	
+	
 	Vwidth = canvas.width;
 	Vheight= canvas.height;
 	
@@ -54,7 +79,8 @@ function InitEngine(_ResolutionIndependent,_debug){
 	//gl.depthFunc(gl.LEQUAL);
 
 	lastTime = $time;
-	fps = 60;
+	fps = 60.0;
+
 
 	//Init Mouse and MouseEvent listeners
 	Mouse = new EngineInitMouse();
@@ -71,18 +97,43 @@ function InitEngine(_ResolutionIndependent,_debug){
 	
 	//mat4.perspective(45, gl.viewportWidth / gl.viewportHeight, 0.1, 100.0, pMatrix);
 	UpdateViewport();
+	
+
 	render();//main function for drawing
 	shutdown();
 }
 
+
+function toggleFullScreen() {
+	if(FULLSCREEN_ENABLED){
+		if(!document.mozFullScreen && !document.webkitIsFullScreen){
+			if(canvas.requestFullScreen){
+				canvas.requestFullScreen();
+			}else if(canvas.mozRequestFullScreen){
+				canvas.mozRequestFullScreen();
+			}else if(canvas.webkitRequestFullScreen){
+				canvas.webkitRequestFullScreen();
+			}			
+		}else{
+			if(canvas.cancelFullScreen){
+				canvas.cancelFullScreen();
+			}else if(canvas.mozCancelFullScreen){
+				canvas.mozCancelFullScreen();
+			}else if(canvas.webkitCancelFullScreen){
+				canvas.webkitCancelFullScreen();
+			}			
+		}
+
+
+	}
+}
 
 function UpdateViewport(){
 	mat4.ortho(0, 1, 0, 1, 0.0, 100.0, pMatrix);
 	gl.viewport(0,0,gl.viewportWidth,gl.viewportHeight);
 	
 	mat4.identity(mvMatrix);
-	//mat4.translate(mvMatrix,[0.0,0.0,-5.0]);
-	//mat4.transpose(mvMatrix, pMatrix);
+
 	
 
 }
