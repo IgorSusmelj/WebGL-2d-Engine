@@ -9,13 +9,23 @@ function Sprite(image_url,width,height){
 	this.height = height;
 
 	
-	if(RESOLUTION_INDEPENDENT_RENDERING)
+	if(RESOLUTION_INDEPENDENT_SCALING)
 		{
-			var scaleFactorX = 0.4;
-			var scaleFactorY = 0.4*(Vwidth/Vheight);
+			var scaleFactorX = width/512;
+			if(STRETCHING_ENABLED){
+				var scaleFactorY = height/512;
+			}else{
+				var scaleFactorY = height/512*(Vwidth/Vheight);
+			}
+				
 		}else{
 			var scaleFactorX = this.width/Vwidth;
-			var scaleFactorY = this.height/Vheight;			
+			if(STRETCHING_ENABLED){
+				var scaleFactorY = scaleFactorX;
+			}else{
+				var scaleFactorY = this.height/Vheight;	
+			}
+				
 		}
 
 	
