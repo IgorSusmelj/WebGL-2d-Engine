@@ -6,7 +6,7 @@ var sprite;
 var example;
 
 function DOM_LOADED(){
-	InitEngine(true,true);
+	InitEngine(false,false,true,false);
 	
 }
 
