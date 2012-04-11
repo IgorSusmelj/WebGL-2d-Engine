@@ -27,14 +27,16 @@ var pMatrix = mat4.create();
 var renderTimer = new Timer();
 var texture_test;
 
+var FULLSCREEN_TIMER;
+
 var Mouse;
 var DEBUG_ENABLED;
 var RESOLUTION_INDEPENDENT_SCALING;
 var STRETCHING_ENABLED;
-var FULLSCREEN_ENABLED;
 
 
 var pixels;
+
 
 
 function InitEngine(_ResolutionIndependent,_EnableStretching,_EnableFullScreen,_EnableDebug){
@@ -58,6 +60,7 @@ function InitEngine(_ResolutionIndependent,_EnableStretching,_EnableFullScreen,_
 	
 
 	gl = WebGLUtils.setupWebGL(canvas);
+	
 	
 	
 	//Check for fullscreen support and enable it if _EnableFullScreen is true and Enter key has been clicked
@@ -105,11 +108,16 @@ function InitEngine(_ResolutionIndependent,_EnableStretching,_EnableFullScreen,_
 
 
 function toggleFullScreen() {
+
+
 	if(FULLSCREEN_ENABLED){
+
 		if(!document.mozFullScreen && !document.webkitIsFullScreen){
 			if(canvas.requestFullScreen){
+
 				canvas.requestFullScreen();
 			}else if(canvas.mozRequestFullScreen){
+
 				canvas.mozRequestFullScreen();
 			}else if(canvas.webkitRequestFullScreen){
 				canvas.webkitRequestFullScreen();
@@ -126,7 +134,10 @@ function toggleFullScreen() {
 
 
 	}
+
 }
+
+
 
 function UpdateViewport(){
 	mat4.ortho(0, 1, 0, 1, 0.0, 100.0, pMatrix);
@@ -151,9 +162,9 @@ var EngineInitMouse = function(){
 function EngineMouseDown(event){
 	Mouse.down = true;
 	Mouse.Sx = event.clientX;
-	Mouse.Sy = event.clientX;
+	Mouse.Sy = event.clientY;
 	Mouse.x = event.clientX;
-	Mouse.y = event.clientX;
+	Mouse.y = event.clientY;
 	switch(event.button){
 	case 0:
 		Mouse.button = 1;
@@ -176,7 +187,7 @@ function EngineMouseMove(event){
 	if(Mouse.down){
 		Mouse.move = true;
 		Mouse.x = event.clientX;
-		Mouse.y = event.clientX;
+		Mouse.y = event.clientY;
 	}
 }
 
