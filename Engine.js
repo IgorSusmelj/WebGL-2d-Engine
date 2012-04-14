@@ -77,9 +77,13 @@ function InitEngine(_ResolutionIndependent,_EnableStretching,_EnableFullScreen,_
 	gl.viewportWidth = canvas.width;
 	gl.viewportHeight= canvas.height;
 	
-	gl.clearColor(0.0,0.0,0.0,1.0);
+	gl.clearColor(0.9,0.9,0.9,1.0);
 	gl.enable(gl.DEPTH_TEST);
-	//gl.depthFunc(gl.LEQUAL);
+	gl.depthFunc(gl.LEQUAL);
+	
+	gl.enable(gl.BLEND);
+	gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+
 
 	lastTime = $time;
 	fps = 60.0;
@@ -114,10 +118,8 @@ function toggleFullScreen() {
 
 		if(!document.mozFullScreen && !document.webkitIsFullScreen){
 			if(canvas.requestFullScreen){
-
 				canvas.requestFullScreen();
 			}else if(canvas.mozRequestFullScreen){
-
 				canvas.mozRequestFullScreen();
 			}else if(canvas.webkitRequestFullScreen){
 				canvas.webkitRequestFullScreen();
