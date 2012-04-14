@@ -117,8 +117,8 @@ function loadTexture(img) {
     neheTexture = gl.createTexture();
     neheTexture.image = new Image();
     neheTexture.image.onload = function () {
-        handleLoadedTexture(neheTexture)
-    }
+        handleLoadedTexture(neheTexture);
+    };
 
     neheTexture.image.src = img;
     return neheTexture;
