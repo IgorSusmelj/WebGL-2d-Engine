@@ -27,10 +27,13 @@ This Engine gives the performance of this brand new API with the old and simple 
 
 <div id='Structure of the Engine'></div>
 
+
 ### Structure of the Engine
 
 The Engine is modular structured. You can add different modules with a simple HTML include command as follows:
-	<script type="text/javascript" src="Time.js"></script> // this loads the Time.js module
+	
+	<script type="text/javascript" src="Time.js"></script> `// this loads the Time.js module`
+	
 This gives you the possibility to add your custom modules or change existing modules.
 
 There are several basic modules which will give you a minimal standard Engine with BB like commands.
@@ -51,17 +54,18 @@ There are several basic modules which will give you a minimal standard Engine wi
 	- This module can load and play different Sounds. Don't forget to read the supported media types section.
 	
 	
-<div id='Supported media types'
+<div id='Supported media types'></div>
+	
 	
 ###	Supported media types
 
-####Supported Image formats by Google Chrome and Mozilla Firefox:
+#### Supported Image formats by Google Chrome and Mozilla Firefox:
 - Jpeg
 - Gif
 - BMP
 - PNG
 
-####Supported Audio formats:
+#### Supported Audio formats:
 * Google Chrome
 	- Mp3
 	- Wav
@@ -70,4 +74,4 @@ There are several basic modules which will give you a minimal standard Engine wi
 	- Wav
 	- Ogg
 
-For further information about the different Browser specifications (see [here](http://en.wikipedia.org/wiki/Comparison_of_web_browsers).
+For further information about the different Browser specifications (see [here](http://en.wikipedia.org/wiki/Comparison_of_web_browsers)).
