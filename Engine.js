@@ -100,7 +100,7 @@ function InitEngine(_ResolutionIndependent,_EnableStretching,_EnableFullScreen,_
 	
 	initShaders();
 	
-	GAME_START();
+	GAME_INIT();
 	
 	//mat4.perspective(45, gl.viewportWidth / gl.viewportHeight, 0.1, 100.0, pMatrix);
 	UpdateViewport();
