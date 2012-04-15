@@ -11,3 +11,9 @@ function LoadSound(src){
 function PlaySound(sound){
 	sound.play();
 }
+
+function FreeSound(sound){
+	sound.pause();
+	sound.src='';
+	sound = null;
+}
