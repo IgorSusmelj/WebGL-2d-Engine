@@ -86,7 +86,7 @@ For further information about the different Browser specifications (see [here](h
 
 #### Minimal Programming environment to work with the WebGL-2d Engine
 
-You'll need at least a browser like  and a basic text editor like the `Windows Notepad`.
+You'll need at least a browser with [WebGL] (http://de.wikipedia.org/wiki/WebGL) support and a basic text editor like the `Windows Notepad`.
 
 #### Recommended Programming environment
 
