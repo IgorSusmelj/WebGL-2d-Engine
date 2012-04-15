@@ -15,10 +15,10 @@ function DOM_LOADED(){
 
 function GAME_INIT(){
 	
-	sprite = LoadImage("nehe.gif",256,256);
-	example= LoadImage("example_texture.jpg",64,64);
-	font = LoadFont("BitmapFont_Calibri.png");
-	audioTest = LoadSound("GetReadyForThis.mp3");
+	sprite = LoadImage("Resources/nehe.gif",256,256);
+	example= LoadImage("Resources/example_texture.jpg",64,64);
+	font = LoadFont("Resources/BitmapFont_Calibri.png");
+	audioTest = LoadSound("Resources/GetReadyForThis.mp3");
 	
 }
 
