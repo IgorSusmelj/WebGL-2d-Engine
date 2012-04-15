@@ -16,4 +16,5 @@ function FreeSound(sound){
 	sound.pause();
 	sound.src='';
 	sound = null;
+	delete sound;
 }
