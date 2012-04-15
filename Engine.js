@@ -25,7 +25,7 @@ var mvMatrix = mat4.create();
 var pMatrix = mat4.create();
 
 var renderTimer = new Timer();
-var texture_test;
+
 
 var FULLSCREEN_TIMER;
 
@@ -109,6 +109,20 @@ function InitEngine(_ResolutionIndependent,_EnableStretching,_EnableFullScreen,_
 	render();//main function for drawing
 	shutdown();
 }
+
+
+/*
+function on_fullscreen_change() {
+    if(document.mozFullScreen || document.webkitIsFullScreen) {
+
+    }
+    else {
+    }
+}
+
+document.addEventListener('mozfullscreenchange', on_fullscreen_change);
+document.addEventListener('webkitfullscreenchange', on_fullscreen_change);
+*/
 
 
 function toggleFullScreen() {
