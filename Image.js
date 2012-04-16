@@ -4,7 +4,7 @@
 
 
 function CSprite(image_url,width,height){
-	
+	this.width = width;
 }
 
 function Sprite(image_url,width,height){
