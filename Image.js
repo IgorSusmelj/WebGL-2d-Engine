@@ -2,6 +2,11 @@
  * 
  */
 
+
+function CSprite(image_url,width,height){
+	
+}
+
 function Sprite(image_url,width,height){
 	
 	this.texture = loadTexture(image_url);
@@ -69,7 +74,7 @@ function Sprite(image_url,width,height){
 }
 
 function LoadImage(image_url,width,height){
-	return new Sprite(image_url,width,height);
+	return new CSprite(image_url,width,height);
 }
 
 
