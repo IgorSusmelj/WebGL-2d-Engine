@@ -9,6 +9,7 @@ var font;
 var audioTest;
 
 function DOM_LOADED(){
+	//function InitEngine(_ResolutionIndependent,_EnableStretching,_EnableFullScreen,_EnableDebug)
 	InitEngine(false,false,true,true);
 	
 }
