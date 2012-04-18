@@ -16,13 +16,6 @@ var fps;
 var performanceText;
 var Vwidth;
 var Vheight;
-var activeShader;
-var vertexAttribLoc;
-var vVertices;
-var vertexPosBufferObject;
-
-var mvMatrix = mat4.create();
-var pMatrix = mat4.create();
 
 var renderTimer = new Timer();
 
@@ -59,7 +52,7 @@ function InitEngine(_ResolutionIndependent,_EnableStretching,_EnableFullScreen,_
 	canvas = document.getElementById("GL-Canvas");
 	
 
-	gl = WebGLUtils.setupWebGL(canvas);
+	gl = canvas.getContext("2d");
 	
 	
 	
@@ -73,17 +66,6 @@ function InitEngine(_ResolutionIndependent,_EnableStretching,_EnableFullScreen,_
 	
 	Vwidth = canvas.width;
 	Vheight= canvas.height;
-	
-	gl.viewportWidth = canvas.width;
-	gl.viewportHeight= canvas.height;
-	
-	gl.clearColor(0.9,0.9,0.9,1.0);
-	gl.enable(gl.DEPTH_TEST);
-	gl.depthFunc(gl.LEQUAL);
-	
-	gl.enable(gl.BLEND);
-	gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
-
 
 	lastTime = $time;
 	fps = 60.0;
@@ -98,12 +80,9 @@ function InitEngine(_ResolutionIndependent,_EnableStretching,_EnableFullScreen,_
 	document.onmousemove=EngineMouseMove;
 	
 	
-	initShaders();
 	
 	GAME_INIT();
 	
-	//mat4.perspective(45, gl.viewportWidth / gl.viewportHeight, 0.1, 100.0, pMatrix);
-	UpdateViewport();
 	
 
 	render();//main function for drawing
@@ -153,17 +132,6 @@ function toggleFullScreen() {
 
 }
 
-
-
-function UpdateViewport(){
-	mat4.ortho(0, 1, 0, 1, 0.0, 100.0, pMatrix);
-	gl.viewport(0,0,gl.viewportWidth,gl.viewportHeight);
-	
-	mat4.identity(mvMatrix);
-
-	
-
-}
 
 var EngineInitMouse = function(){
 	this.Sx = 0;
@@ -232,12 +200,6 @@ function render(){
 	window.requestAnimFrame(render, canvas);//call drawback function for smooth animation. (60fps limit << screen refresh rate)
 	
 	
-	gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);
-	
-	
-	mat4.identity(mvMatrix);
-	//mat4.rotate(mvMatrix,Math.PI/32,[0,0,1]);
-	
 	GAME_RENDER();
 	
 
@@ -257,75 +219,3 @@ function shutdown(){
 ///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
-
-
-
-function setMatrixUniforms() {
-    gl.uniformMatrix4fv(activeShader.pMatrixUniform, false, pMatrix);
-    gl.uniformMatrix4fv(activeShader.mvMatrixUniform, false, mvMatrix);
-}
-
-function getShader(gl, id) {
-    var shaderScript = document.getElementById(id);
-    if (!shaderScript) {
-        return null;
-    }
-
-    var str = "";
-    var k = shaderScript.firstChild;
-    while (k) {
-        if (k.nodeType == 3) {
-            str += k.textContent;
-        }
-        k = k.nextSibling;
-    }
-
-    var shader;
-    if (shaderScript.type == "x-shader/x-fragment") {
-        shader = gl.createShader(gl.FRAGMENT_SHADER);
-    } else if (shaderScript.type == "x-shader/x-vertex") {
-        shader = gl.createShader(gl.VERTEX_SHADER);
-    } else {
-        return null;
-    }
-
-    gl.shaderSource(shader, str);
-    gl.compileShader(shader);
-
-    if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
-        alert(gl.getShaderInfoLog(shader));
-        return null;
-    }
-
-    return shader;
-}
-
-
-
-function initShaders() {
-    var fragmentShader = getShader(gl, "fragmentShader");
-    var vertexShader = getShader(gl, "vertexShader");
-
-    activeShader = gl.createProgram();
-    gl.attachShader(activeShader, vertexShader);
-    gl.attachShader(activeShader, fragmentShader);
-    gl.linkProgram(activeShader);
-
-    if (!gl.getProgramParameter(activeShader, gl.LINK_STATUS)) {
-        alert("Could not initialise shaders");
-    }
-
-    gl.useProgram(activeShader);
-
-    activeShader.vertexPositionAttribute = gl.getAttribLocation(activeShader, "aVertexPosition");
-    gl.enableVertexAttribArray(activeShader.vertexPositionAttribute);
-
-    activeShader.textureCoordAttribute = gl.getAttribLocation(activeShader, "aTextureCoord");
-    gl.enableVertexAttribArray(activeShader.textureCoordAttribute);
-
-    activeShader.pMatrixUniform = gl.getUniformLocation(activeShader, "uPMatrix");
-    activeShader.mvMatrixUniform = gl.getUniformLocation(activeShader, "uMVMatrix");
-    activeShader.samplerUniform = gl.getUniformLocation(activeShader, "uSampler");
-}
-
-
