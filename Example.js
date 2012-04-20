@@ -29,8 +29,8 @@ function GAME_RENDER(){
 		PlaySound(audioTest);
 	if(MouseDown(2))
 		FreeSound(audioTest);*/
-	SetFont(font);
-	Text(0.6,0.6,"0512");
+	//SetFont(font);
+	//Text(0.6,0.6,"0512");
 	//DrawText("test");
 	
 }
