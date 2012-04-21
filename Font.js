@@ -39,11 +39,11 @@ function Font(fontUrl){
 
 	if(RESOLUTION_INDEPENDENT_SCALING)
 	{
-		var scaleFactorX = width/256;
+		var scaleFactorX = this.size/256;
 		if(STRETCHING_ENABLED){
-			var scaleFactorY = height/256;
+			var scaleFactorY = this.size/256;
 		}else{
-			var scaleFactorY = height/256*(SCREEN_WIDTH/SCREEN_HEIGHT);
+			var scaleFactorY = this.size/256*(SCREEN_WIDTH/SCREEN_HEIGHT);
 		}
 			
 	}else{
