@@ -31,6 +31,10 @@ var FULLSCREEN_TIMER;
 var Mouse;
 
 
+//Keyboard events
+var KeyEnum = {Arr_Up:0,Arr_Down:1,Arr_Right:2,Arr_Left:3};
+var KeyArray = new Array(4);
+
 
 var RESOLUTION_INDEPENDENT_SCALING=false;
 var STRETCHING_ENABLED=false;
@@ -40,6 +44,7 @@ var DEBUG_ENABLED=false;
 //Screen dimension variables
 var SCREEN_WIDTH=640;
 var SCREEN_HEIGHT=480;
+var SCREEN_RATIO=0.0;
 
 
 var pixels;
@@ -56,6 +61,7 @@ function InitEngine(_ResolutionIndependent,_EnableStretching,_EnableFullScreen,_
 	if(!_EnableDebug)
 		DEBUG_ENABLED = false;
 	
+	SCREEN_RATIO=SCREEN_WIDTH/SCREEN_HEIGHT;
 	
 	RESOLUTION_INDEPENDENT_SCALING = _ResolutionIndependent;
 	STRETCHING_ENABLED =_EnableStretching;
@@ -71,12 +77,18 @@ function InitEngine(_ResolutionIndependent,_EnableStretching,_EnableFullScreen,_
 	
 	
 	//Check for fullscreen support and enable it if _EnableFullScreen is true and Enter key has been clicked
-	document.addEventListener("keydown", function(e) {
+	/*document.addEventListener("keydown", function(e) {
 		  if (e.keyCode == 13) {
 		    toggleFullScreen();
 		  }
-		}, false);
+		}, false);*/
 	
+	document.addEventListener("keydown", 
+			EngineKeyDown
+		, false);
+	document.addEventListener("keyup", 
+			EngineKeyUp
+		, false);
 	
 	SCREEN_WIDTH = canvas.width;
 	SCREEN_HEIGHT= canvas.height;
@@ -163,7 +175,7 @@ function toggleFullScreen() {
 
 
 function UpdateViewport(){
-	mat4.ortho(0, 1, 1, 0, 0.0, 100.0, pMatrix);
+	mat4.ortho(0, SCREEN_RATIO, 1, 0, 0.0, 100.0, pMatrix);
 	gl.viewport(0,0,SCREEN_WIDTH,SCREEN_HEIGHT);
 	
 	mat4.identity(mvMatrix);
@@ -199,6 +211,40 @@ function EngineMouseDown(event){
 		Mouse.button = 2;
 		break;
 	}
+}
+
+function EngineKeyDown(e){
+	switch(e.keyCode){
+		case 38:
+			KeyArray[KeyEnum.Arr_Up]=true;
+			break;
+		case 40:
+			KeyArray[KeyEnum.Arr_Down]=true;
+			break;
+		case 39:
+			KeyArray[KeyEnum.Arr_Right]=true;
+			break;
+		case 37:
+			KeyArray[KeyEnum.Arr_Left]=true;
+			break;
+	}
+}
+function EngineKeyUp(e){
+	switch(e.keyCode){
+	case 38:
+		KeyArray[KeyEnum.Arr_Up]=false;
+		break;
+	case 40:
+		KeyArray[KeyEnum.Arr_Down]=false;
+		break;
+	case 39:
+		KeyArray[KeyEnum.Arr_Right]=false;
+		break;
+	case 37:
+		KeyArray[KeyEnum.Arr_Left]=false;
+		break;
+}
+
 }
 
 function EngineMouseUp(event){
