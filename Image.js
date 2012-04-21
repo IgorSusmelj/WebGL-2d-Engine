@@ -7,39 +7,50 @@ function Sprite(image_url,width,height){
 	this.texture = loadTexture(image_url);
 	this.width = width;
 	this.height = height;
-
+	this.rotation=0.0;
 	
 	if(RESOLUTION_INDEPENDENT_SCALING)
 		{
-			var scaleFactorX = width/512;
+			var scaleFactorX = this.width/512;
 			if(STRETCHING_ENABLED){
-				var scaleFactorY = height/512;
+				var scaleFactorY = this.height/512*(SCREEN_WIDTH/SCREEN_HEIGHT);
 			}else{
-				var scaleFactorY = height/512*(SCREEN_WIDTH/SCREEN_HEIGHT);
+				var scaleFactorY = this.height/512;
 			}
 				
 		}else{
 			var scaleFactorX = this.width/SCREEN_WIDTH;
 			if(STRETCHING_ENABLED){
-				var scaleFactorY = scaleFactorX;
+				var scaleFactorY = this.height/SCREEN_HEIGHT;
 			}else{
-				var scaleFactorY = this.height/SCREEN_HEIGHT;	
+				var scaleFactorY = scaleFactorX;	
 			}
 				
 		}
 
-	
+	this.XScale = scaleFactorX;
+	this.YScale = scaleFactorY;
+	var tmpScalexHalf = scaleFactorX/2;
+	var tmpScaleyHalf = scaleFactorY/2
 	
     this.VertexPositionBuffer = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, this.VertexPositionBuffer);
     var vertices = [
 
-         0, 0,  0.0,
-         scaleFactorX, 0,  0.0,
-         scaleFactorX,  scaleFactorY,  0.0,
-         0,  scaleFactorY,  0.0
+         -tmpScalexHalf, -tmpScaleyHalf,  0.0,
+         tmpScalexHalf, -tmpScaleyHalf,  0.0,
+         tmpScalexHalf,  tmpScaleyHalf,  0.0,
+         -tmpScalexHalf,  tmpScaleyHalf,  0.0
 
     ];
+    
+    
+    0, 0,  0.0,
+    scaleFactorX, 0,  0.0,
+    scaleFactorX,  scaleFactorY,  0.0,
+    0,  scaleFactorY,  0.0
+    
+    
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
     this.VertexPositionBuffer.itemSize = 3;
     this.VertexPositionBuffer.numItems = 4;
@@ -72,12 +83,15 @@ function LoadImage(image_url,width,height){
 	return new Sprite(image_url,width,height);
 }
 
+function RotateImage(_sprite,angle){
+	_sprite.rotation = angle;
+}
 
 
-
-function DrawImage(_sprite,x,y){
-	mat4.translate(mvMatrix,[x,y,0.0]);
+function DrawImage(_sprite,x,y,w,h){
 	
+	mat4.translate(mvMatrix,[x+_sprite.XScale/2,y+_sprite.YScale/2,0.0]);
+	mat4.rotate(mvMatrix,_sprite.rotation,[0,0,1]);
     gl.bindBuffer(gl.ARRAY_BUFFER, _sprite.VertexPositionBuffer);
     gl.vertexAttribPointer(activeShader.vertexPositionAttribute, _sprite.VertexPositionBuffer.itemSize, gl.FLOAT, false, 0, 0);
 
