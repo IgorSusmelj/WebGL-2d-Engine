@@ -15,15 +15,15 @@ function Sprite(image_url,width,height){
 			if(STRETCHING_ENABLED){
 				var scaleFactorY = height/512;
 			}else{
-				var scaleFactorY = height/512*(Vwidth/Vheight);
+				var scaleFactorY = height/512*(SCREEN_WIDTH/SCREEN_HEIGHT);
 			}
 				
 		}else{
-			var scaleFactorX = this.width/Vwidth;
+			var scaleFactorX = this.width/SCREEN_WIDTH;
 			if(STRETCHING_ENABLED){
 				var scaleFactorY = scaleFactorX;
 			}else{
-				var scaleFactorY = this.height/Vheight;	
+				var scaleFactorY = this.height/SCREEN_HEIGHT;	
 			}
 				
 		}
@@ -103,7 +103,7 @@ function DrawImage(_sprite,x,y){
 
 function handleLoadedTexture(texture) {
     gl.bindTexture(gl.TEXTURE_2D, texture);
-    gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
+    gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, false);
     gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, texture.image);
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);

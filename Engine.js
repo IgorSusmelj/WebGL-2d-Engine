@@ -12,10 +12,8 @@ var canvas;
 var debugConsole, performanceConsole;
 var postTime;
 var lastTime;
-var fps;
+var fps=0.0;
 var performanceText;
-var Vwidth;
-var Vheight;
 var activeShader;
 var vertexAttribLoc;
 var vVertices;
@@ -29,10 +27,19 @@ var renderTimer = new Timer();
 
 var FULLSCREEN_TIMER;
 
+//Mouse
 var Mouse;
-var DEBUG_ENABLED;
-var RESOLUTION_INDEPENDENT_SCALING;
-var STRETCHING_ENABLED;
+
+
+
+var RESOLUTION_INDEPENDENT_SCALING=false;
+var STRETCHING_ENABLED=false;
+var FULLSCREEN_ENABLED=false;
+var DEBUG_ENABLED=false;
+
+//Screen dimension variables
+var SCREEN_WIDTH=640;
+var SCREEN_HEIGHT=480;
 
 
 var pixels;
@@ -50,10 +57,10 @@ function InitEngine(_ResolutionIndependent,_EnableStretching,_EnableFullScreen,_
 		DEBUG_ENABLED = false;
 	
 	
-	DEBUG_ENABLED = _EnableDebug;
 	RESOLUTION_INDEPENDENT_SCALING = _ResolutionIndependent;
 	STRETCHING_ENABLED =_EnableStretching;
 	FULLSCREEN_ENABLED=_EnableFullScreen;
+	DEBUG_ENABLED = _EnableDebug;
 	
 	performanceConsole = document.getElementById("performance_analyzer");
 	canvas = document.getElementById("GL-Canvas");
@@ -71,11 +78,11 @@ function InitEngine(_ResolutionIndependent,_EnableStretching,_EnableFullScreen,_
 		}, false);
 	
 	
-	Vwidth = canvas.width;
-	Vheight= canvas.height;
+	SCREEN_WIDTH = canvas.width;
+	SCREEN_HEIGHT= canvas.height;
 	
-	gl.viewportWidth = canvas.width;
-	gl.viewportHeight= canvas.height;
+	//gl.viewportWidth = canvas.width;
+	//gl.viewportHeight= canvas.height;
 	
 	gl.clearColor(0.9,0.9,0.9,1.0);
 	gl.enable(gl.DEPTH_TEST);
@@ -102,7 +109,7 @@ function InitEngine(_ResolutionIndependent,_EnableStretching,_EnableFullScreen,_
 	
 	GAME_INIT();
 	
-	//mat4.perspective(45, gl.viewportWidth / gl.viewportHeight, 0.1, 100.0, pMatrix);
+	//mat4.perspective(45, SCREEN_WIDTH / SCREEN_HEIGHT, 0.1, 100.0, pMatrix);
 	UpdateViewport();
 	
 
@@ -156,8 +163,8 @@ function toggleFullScreen() {
 
 
 function UpdateViewport(){
-	mat4.ortho(0, 1, 0, 1, 0.0, 100.0, pMatrix);
-	gl.viewport(0,0,gl.viewportWidth,gl.viewportHeight);
+	mat4.ortho(0, 1, 1, 0, 0.0, 100.0, pMatrix);
+	gl.viewport(0,0,SCREEN_WIDTH,SCREEN_HEIGHT);
 	
 	mat4.identity(mvMatrix);
 

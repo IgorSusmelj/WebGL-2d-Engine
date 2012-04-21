@@ -43,15 +43,15 @@ function Font(fontUrl){
 		if(STRETCHING_ENABLED){
 			var scaleFactorY = height/256;
 		}else{
-			var scaleFactorY = height/256*(Vwidth/Vheight);
+			var scaleFactorY = height/256*(SCREEN_WIDTH/SCREEN_HEIGHT);
 		}
 			
 	}else{
-		var scaleFactorX = this.size/Vwidth;
+		var scaleFactorX = this.size/SCREEN_WIDTH;
 		if(STRETCHING_ENABLED){
 			var scaleFactorY = scaleFactorX;
 		}else{
-			var scaleFactorY = this.size/Vheight;	
+			var scaleFactorY = this.size/SCREEN_HEIGHT;	
 		}
 			
 	}
@@ -83,10 +83,10 @@ function Font(fontUrl){
 		    this.FontMap[i].TextureCoordBuffer = gl.createBuffer();
 		    gl.bindBuffer(gl.ARRAY_BUFFER, this.FontMap[i].TextureCoordBuffer);
 		    this.FontMap[i].textureCoords = [
-		      0.0+(u*0.125), 0.875-(t*0.125),
-		      0.125+(u*0.125), 0.875-(t*0.125),
-		      0.125+(u*0.125), 1.0-(t*0.125),
-		      0.0+(u*0.125), 1.0-(t*0.125)
+		      (u*0.125), (t*0.125),
+		      0.125+(u*0.125), (t*0.125),
+		      0.125+(u*0.125), 0.125+(t*0.125),
+		      (u*0.125), 0.125+(t*0.125)
 		    ];
     
 		    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(this.FontMap[i].textureCoords), gl.STATIC_DRAW);
