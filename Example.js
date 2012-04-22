@@ -24,7 +24,7 @@ function GAME_INIT(){
 }
 
 function GAME_RENDER(){
-	DrawImage(sprite,0.0,0.0);
+	DrawImage(sprite,0.5,0.1);
 	/*if(MouseDown(1))
 		PlaySound(audioTest);
 	if(MouseDown(2))

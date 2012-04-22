@@ -22,7 +22,6 @@ var renderTimer = new Timer();
 
 var FULLSCREEN_TIMER;
 
-var Mouse;
 var DEBUG_ENABLED;
 var RESOLUTION_INDEPENDENT_SCALING;
 var STRETCHING_ENABLED;
@@ -128,64 +127,6 @@ function toggleFullScreen() {
 		}
 
 
-	}
-
-}
-
-
-var EngineInitMouse = function(){
-	this.Sx = 0;
-	this.Sy = 0;
-	this.x = 0;
-	this.y = 0;
-	this.down = false;
-	this.move = false;
-	this.button = 0;
-};
-
-function EngineMouseDown(event){
-	Mouse.down = true;
-	Mouse.Sx = event.clientX;
-	Mouse.Sy = event.clientY;
-	Mouse.x = event.clientX;
-	Mouse.y = event.clientY;
-	switch(event.button){
-	case 0:
-		Mouse.button = 1;
-		break;
-	case 1:
-		Mouse.button = 3;
-		break;
-	case 2:
-		Mouse.button = 2;
-		break;
-	}
-}
-
-function EngineMouseUp(event){
-	Mouse.down = false;
-	Mouse.move = false;
-}
-
-function EngineMouseMove(event){
-	if(Mouse.down){
-		Mouse.move = true;
-		Mouse.x = event.clientX;
-		Mouse.y = event.clientY;
-	}
-}
-
-function MouseX(){
-	return Mouse.x;
-}
-function MouseY(){
-	return Mouse.y;
-}
-function MouseDown(key){
-	if(Mouse.down){
-		if(key==Mouse.button)
-			return  true;
-		return false;		
 	}
 
 }
