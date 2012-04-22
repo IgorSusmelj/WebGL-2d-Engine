@@ -32,8 +32,11 @@ function GAME_RENDER(){
 		rotStep+=0.05;
 	if(MouseDown(2))
 		rotStep-=0.05;
+	
+	if(KeyDown(38))
+		Text(0.6,0.6,"0512");
 	SetFont(font);
-	Text(0.6,0.6,"0512");
+	
 	//DrawText("test");
 	
 }

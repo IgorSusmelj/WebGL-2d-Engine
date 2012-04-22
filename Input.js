@@ -7,7 +7,7 @@ var Mouse;
 
 
 //Keyboard events
-var KeyEnum = {Arr_Up:0,Arr_Down:1,Arr_Right:2,Arr_Left:3};
+var KeyEnum = {Arr_Up:38,Arr_Down:40,Arr_Right:39,Arr_Left:37};
 var KeyArray = new Array(4);
 
 
@@ -70,8 +70,14 @@ function EngineKeyUp(e){
 	case 37:
 		KeyArray[KeyEnum.Arr_Left]=false;
 		break;
+	}
+
 }
 
+function KeyDown(key){
+	if(KeyArray[key])
+		return true;
+	return false;
 }
 
 function EngineMouseUp(event){
