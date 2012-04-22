@@ -5,7 +5,8 @@
 var sprite;
 var example;
 var font;
-
+var x=0.5;
+var y=0.5;
 var audioTest;
 
 function DOM_LOADED(){
@@ -24,11 +25,11 @@ function GAME_INIT(){
 }
 
 function GAME_RENDER(){
-	DrawImage(sprite,0.5,0.1);
-	/*if(MouseDown(1))
-		PlaySound(audioTest);
+	DrawImage(sprite,x,y);
+	if(MouseDown(1))
+		x+=0.05;
 	if(MouseDown(2))
-		FreeSound(audioTest);*/
+		x-=0.05;
 	//SetFont(font);
 	//Text(0.6,0.6,"0512");
 	//DrawText("test");
