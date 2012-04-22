@@ -28,9 +28,7 @@ function analyze_performance(){
 	tmpText+="MouseY: "+MouseY()+"<br>";
 	tmpText+="MouseDown: "+Mouse.down+"<br>";
 	tmpText+="MouseMove: "+Mouse.move+"<br>";
-	tmpText+="pixels: "+pixels+"<br>";
-	
-	pixels
+
 	
 	performanceConsole.innerHTML = tmpText;
 	lastTime = $time();
