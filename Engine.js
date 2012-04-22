@@ -12,22 +12,26 @@ var canvas;
 var debugConsole, performanceConsole;
 var postTime;
 var lastTime;
-var fps;
+var fps =0.0;
 var performanceText;
-var Vwidth;
-var Vheight;
+
 
 var renderTimer = new Timer();
 
 
 var FULLSCREEN_TIMER;
 
-var DEBUG_ENABLED;
-var RESOLUTION_INDEPENDENT_SCALING;
-var STRETCHING_ENABLED;
+var RESOLUTION_INDEPENDENT_SCALING=false;
+var STRETCHING_ENABLED=false;
+var FULLSCREEN_ENABLED=false;
+var DEBUG_ENABLED=false;
+
+//Screen dimension variables
+var SCREEN_WIDTH=640;
+var SCREEN_HEIGHT=480;
+var SCREEN_RATIO=0.0;
 
 
-var pixels;
 
 
 
@@ -40,6 +44,7 @@ function InitEngine(_ResolutionIndependent,_EnableStretching,_EnableFullScreen,_
 		STRETCHING_ENABLED = false;
 	if(!_EnableDebug)
 		DEBUG_ENABLED = false;
+	
 	
 	
 	DEBUG_ENABLED = _EnableDebug;
@@ -62,9 +67,18 @@ function InitEngine(_ResolutionIndependent,_EnableStretching,_EnableFullScreen,_
 		  }
 		}, false);
 	
+	document.addEventListener("keydown", 
+			EngineKeyDown
+		, false);
+	document.addEventListener("keyup", 
+			EngineKeyUp
+		, false);
 	
-	Vwidth = canvas.width;
-	Vheight= canvas.height;
+	
+	SCREEN_RATIO=SCREEN_WIDTH/SCREEN_HEIGHT;
+	
+	SCREEN_WIDTH = canvas.width;
+	SCREEN_HEIGHT= canvas.height;
 
 	lastTime = $time;
 	fps = 60.0;
@@ -139,7 +153,7 @@ function render(){
 			renderTimer.start();		
 		}
 	window.requestAnimFrame(render, canvas);//call drawback function for smooth animation. (60fps limit << screen refresh rate)
-	
+	gl.clearRect(0,0,SCREEN_WIDTH,SCREEN_HEIGHT);
 	
 	GAME_RENDER();
 	
