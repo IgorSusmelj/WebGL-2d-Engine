@@ -12,7 +12,7 @@ var audioTest;
 var rotStep=0.0;
 
 function DOM_LOADED(){
-	InitEngine(false,false,true,true);
+	InitEngine(640,480,true,true);
 	
 }
 
@@ -26,7 +26,7 @@ function GAME_INIT(){
 }
 
 function GAME_RENDER(){
-	RotateImage(sprite,rotStep)
+	RotateImage(sprite,rotStep);
 	DrawImage(sprite,0.0,0.0);
 	if(MouseDown(1))
 		rotStep+=0.05;
@@ -36,8 +36,6 @@ function GAME_RENDER(){
 	if(KeyDown(38))
 		Text(0.6,0.6,"0512");
 	SetFont(font);
-	
-	//DrawText("test");
 	
 }
 
