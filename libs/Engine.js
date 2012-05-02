@@ -43,20 +43,25 @@ var SCREEN_RATIO=0.0;
 
 
 
-function InitEngine(_ResolutionIndependent,_EnableStretching,_EnableFullScreen,_EnableDebug){
+function InitEngine(req_width,req_height,_EnableFullScreen,_EnableDebug){
 	
-	
-	if(!_ResolutionIndependent)
+	if(req_width)
+		SCREEN_WIDTH=req_width;
+	if(req_height)
+		SCREEN_HEIGHT=req_height;
+	//if(!_ResolutionIndependent)
 		RESOLUTION_INDEPENDENT_SCALING = false;
-	if(!_EnableStretching)
+	//if(!_EnableStretching)
 		STRETCHING_ENABLED = false;
+	if(!_EnableFullScreen)
+		FULLSCREEN_ENABLED = false;
 	if(!_EnableDebug)
 		DEBUG_ENABLED = false;
 	
 	SCREEN_RATIO=SCREEN_WIDTH/SCREEN_HEIGHT;
 	
-	RESOLUTION_INDEPENDENT_SCALING = _ResolutionIndependent;
-	STRETCHING_ENABLED =_EnableStretching;
+	//RESOLUTION_INDEPENDENT_SCALING = _ResolutionIndependent;
+	//STRETCHING_ENABLED =_EnableStretching;
 	FULLSCREEN_ENABLED=_EnableFullScreen;
 	DEBUG_ENABLED = _EnableDebug;
 	
@@ -82,8 +87,8 @@ function InitEngine(_ResolutionIndependent,_EnableStretching,_EnableFullScreen,_
 			EngineKeyUp
 		, false);
 	
-	SCREEN_WIDTH = canvas.width;
-	SCREEN_HEIGHT= canvas.height;
+	canvas.width=SCREEN_WIDTH;
+	canvas.height=SCREEN_HEIGHT;
 	
 	//gl.viewportWidth = canvas.width;
 	//gl.viewportHeight= canvas.height;
