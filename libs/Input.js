@@ -11,6 +11,8 @@ var KeyEnum = {Arr_Up:38,Arr_Down:40,Arr_Right:39,Arr_Left:37};
 var KeyArray = new Array(4);
 
 
+
+
 var EngineInitMouse = function(){
 	this.Sx = 0;
 	this.Sy = 0;
@@ -38,6 +40,7 @@ function EngineMouseDown(event){
 		Mouse.button = 2;
 		break;
 	}
+	return false;
 }
 
 function EngineKeyDown(e){
@@ -70,6 +73,7 @@ function EngineKeyUp(e){
 	case 37:
 		KeyArray[KeyEnum.Arr_Left]=false;
 		break;
+		
 	}
 
 }
@@ -83,6 +87,7 @@ function KeyDown(key){
 function EngineMouseUp(event){
 	Mouse.down = false;
 	Mouse.move = false;
+	return false;
 }
 
 function EngineMouseMove(event){
@@ -91,6 +96,7 @@ function EngineMouseMove(event){
 		Mouse.x = event.clientX;
 		Mouse.y = event.clientY;
 	}
+	return false;
 }
 
 function MouseX(){
@@ -107,3 +113,5 @@ function MouseDown(key){
 	}
 
 }
+
+

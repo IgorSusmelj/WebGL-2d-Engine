@@ -116,7 +116,11 @@ function Text(x,y,text){
 
 	for(var i=0;i<text.length;i++){
 		var u = text.charCodeAt(i);
-		if(u>47 &&u<58){
+		if(u==32){
+			u=63;
+		}else if(u==58){
+			u=62;
+		}else if(u>47 &&u<58){
 			u-=48;
 		}else if(u>64&&u<91){
 			u-=55;

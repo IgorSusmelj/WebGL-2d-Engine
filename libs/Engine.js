@@ -104,13 +104,12 @@ function InitEngine(req_width,req_height,_EnableFullScreen,_EnableDebug){
 	lastTime = $time;
 	fps = 60.0;
 
-
 	//Init Mouse and MouseEvent listeners
 	Mouse = new EngineInitMouse();
 
 	canvas.onmousedown = EngineMouseDown;
-	document.onmouseup = EngineMouseUp;
-	document.onmousemove=EngineMouseMove;
+	canvas.onmouseup = EngineMouseUp;
+	canvas.onmousemove=EngineMouseMove;
 	
 	
 	initShaders();
@@ -151,7 +150,7 @@ function toggleFullScreen() {
 			}else if(canvas.mozRequestFullScreen){
 				canvas.mozRequestFullScreen();
 			}else if(canvas.webkitRequestFullScreen){
-				canvas.webkitRequestFullScreen();
+				canvas.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);
 			}			
 		}else{
 			if(canvas.cancelFullScreen){
