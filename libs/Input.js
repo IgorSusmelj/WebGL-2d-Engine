@@ -7,8 +7,9 @@ var Mouse;
 
 
 //Keyboard events
-var KeyEnum = {Arr_Up:38,Arr_Down:40,Arr_Right:39,Arr_Left:37};
-var KeyArray = new Array(4);
+var KeyEnum = {Arr_Up:38,Arr_Down:40,Arr_Right:39,Arr_Left:37,W:87,A:65,S:83,D:68,Space:32};
+var KeyArray = new Array(false,false,false,false,false,false,false,false,false);
+var KeyHitArray = new Array(false,false,false,false,false,false,false,false,false);
 
 
 
@@ -44,7 +45,10 @@ function EngineMouseDown(event){
 }
 
 function EngineKeyDown(e){
+	//alert("eys");
 	switch(e.keyCode){
+	
+	//arrows
 		case 38:
 			KeyArray[KeyEnum.Arr_Up]=true;
 			break;
@@ -57,22 +61,72 @@ function EngineKeyDown(e){
 		case 37:
 			KeyArray[KeyEnum.Arr_Left]=true;
 			break;
+			
+	//wasd
+		case 87:
+			KeyArray[KeyEnum.W]=true;
+			break;
+		case 65:
+			KeyArray[KeyEnum.A]=true;
+			break;
+		case 83:
+			KeyArray[KeyEnum.S]=true;
+			break;
+		case 68:
+			KeyArray[KeyEnum.D]=true;
+			break;
+			
+		//space
+		case 32:
+			KeyArray[KeyEnum.Space]=true;
+			break;	
+		
 	}
 }
 function EngineKeyUp(e){
 	switch(e.keyCode){
-	case 38:
-		KeyArray[KeyEnum.Arr_Up]=false;
-		break;
-	case 40:
-		KeyArray[KeyEnum.Arr_Down]=false;
-		break;
-	case 39:
-		KeyArray[KeyEnum.Arr_Right]=false;
-		break;
-	case 37:
-		KeyArray[KeyEnum.Arr_Left]=false;
-		break;
+	
+	//arrows
+		case 38:
+			KeyArray[KeyEnum.Arr_Up]=false;
+			KeyHitArray[KeyEnum.Arr_Up]=false;
+			break;
+		case 40:
+			KeyArray[KeyEnum.Arr_Down]=false;
+			KeyHitArray[KeyEnum.Arr_Down]=false;
+			break;
+		case 39:
+			KeyArray[KeyEnum.Arr_Right]=false;
+			KeyHitArray[KeyEnum.Arr_Right]=false;
+			break;
+		case 37:
+			KeyArray[KeyEnum.Arr_Left]=false;
+			KeyHitArray[KeyEnum.Arr_Left]=false;
+			break;
+			
+	//wasd
+		case 87:
+			KeyArray[KeyEnum.W]=false;
+			KeyHitArray[KeyEnum.W]=false;
+			break;
+		case 65:
+			KeyArray[KeyEnum.A]=false;
+			KeyHitArray[KeyEnum.A]=false;
+			break;
+		case 83:
+			KeyArray[KeyEnum.S]=false;
+			KeyHitArray[KeyEnum.S]=false;
+			break;
+		case 68:
+			KeyArray[KeyEnum.D]=false;
+			KeyHitArray[KeyEnum.D]=false;
+			break;
+			
+		//space
+		case 32:
+			KeyArray[KeyEnum.Space]=false;
+			KeyHitArray[KeyEnum.Space]=false;
+			break;	
 		
 	}
 
@@ -82,6 +136,15 @@ function KeyDown(key){
 	if(KeyArray[key])
 		return true;
 	return false;
+}
+
+function KeyHit(key){
+	if(KeyArray[key]==true&&KeyHitArray[key]==false)
+	{
+		KeyHitArray[key]=true;
+		return true;
+	}
+	return false;	
 }
 
 function EngineMouseUp(event){

@@ -11,6 +11,10 @@ var audioTest;
 
 var rotStep=0.0;
 
+
+var z = 0;
+ 
+ 
 function DOM_LOADED(){
 	InitEngine(640,480,true,true);
 
@@ -22,7 +26,7 @@ function GAME_INIT(){
 	example= LoadImage("Resources/example_texture.jpg",64,64);
 	font = LoadFont("Resources/BitmapFont_Calibri.png");
 	audioTest = LoadSound("Resources/GetReadyForThis.mp3");
-
+	SetFont(font);
 }
 
 function GAME_RENDER(){
@@ -32,10 +36,11 @@ function GAME_RENDER(){
 		rotStep+=0.05;
 	if(MouseDown(2))
 		rotStep-=0.05;
+	
+	if(KeyHit(38))
+		z+=0.05;
 
-	if(KeyDown(38))
-		Text(0.6,0.6,"0512");
-	SetFont(font);
+	Text(0.6,0.6+z,"0512");
 
 }
 
