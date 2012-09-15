@@ -13,6 +13,8 @@ var rotStep=0.0;
 
 
 var z = 0;
+
+var stream;
  
  
 function DOM_LOADED(){
@@ -26,6 +28,7 @@ function GAME_INIT(){
 	example= LoadImage("Resources/example_texture.jpg",64,64);
 	font = LoadFont("Resources/BitmapFont_Calibri.png");
 	audioTest = LoadSound("Resources/GetReadyForThis.mp3");
+	stream = OpenTCPStream("ws://localhost:9999/");
 	SetFont(font);
 }
 
@@ -38,9 +41,13 @@ function GAME_RENDER(){
 		rotStep-=0.05;
 	
 	if(KeyHit(38))
-		z+=0.05;
+		WriteString(stream,"test");
 
 	Text(0.6,0.6+z,"0512");
+	
+	var streamdata = ReadString(stream);
+	if(streamdata!='')
+		console.log("ReadString: "+streamdata);
 
 }
 
